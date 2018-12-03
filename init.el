@@ -3,7 +3,7 @@
 	 atom-one-dark-theme
 	 dracula-theme
 	 monokai-theme
-	 anaconda-mode
+	 elpy
 	 helm
 	 undo-tree
 	 slime
@@ -148,12 +148,9 @@
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
 ;; Python
-;;(setq elpy-rpc-python-command "python3")
-;;(elpy-enable)
-(add-hook 'python-mode-hook 'anaconda-mode)
-(add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+(setq elpy-rpc-python-command "python3")
 (setq python-shell-interpreter "python3")
-
+(elpy-enable)
 
 ;; EShell
 (bash-completion-setup) ;; Bash completion in eshell
