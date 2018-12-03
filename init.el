@@ -36,6 +36,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (setq-default tab-width 2)
+(setq indent-tabs-mode nil)
 
 (set-face-attribute 'default nil
                     :family "Source Code Pro"
