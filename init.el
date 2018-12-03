@@ -1,33 +1,34 @@
-(setq package-list '(
-  atom-one-dark-theme
-	dracula-theme
-	monokai-theme
-	;;	elpy
-	anaconda-mode
-  helm
-  undo-tree
-  slime
-  org
-  magit
-  diff-hl
-  autopair
-  emmet-mode
-  pug-mode
-  vue-mode
-  yafolding
-  yasnippet
-  irony
-  company
-  company-irony
-  flycheck
-  flycheck-irony
-  cmake-mode
-  neotree
-  bash-completion
-  yafolding
-	projectile
-	helm-projectile
-	all-the-icons
+(setq package-list
+ '(
+	 atom-one-dark-theme
+	 dracula-theme
+	 monokai-theme
+	 ;;	elpy
+	 anaconda-mode
+	 helm
+	 undo-tree
+	 slime
+	 org
+	 magit
+	 diff-hl
+	 autopair
+	 emmet-mode
+	 pug-mode
+	 vue-mode
+	 yafolding
+	 yasnippet
+	 irony
+	 company
+	 company-irony
+	 flycheck
+	 flycheck-irony
+	 cmake-mode
+	 neotree
+	 bash-completion
+	 yafolding
+	 projectile
+	 helm-projectile
+	 all-the-icons
 ))
 (load "~/.emacs.d/sanemacs.el")
 
@@ -45,10 +46,10 @@
 
 ;; Path
 (setenv "PATH" (concat
-		       "/usr/local/bin:"
-		       "/home/doug/.local/bin:"
-		       "/home/doug/.npm/bin:"
-					 (getenv "PATH")))
+								"/usr/local/bin:"
+								"/home/doug/.local/bin:"
+								"/home/doug/.npm/bin:"
+								(getenv "PATH")))
 
 ;;; Confirm Emacs quit
 ;;(setq confirm-kill-emacs 'y-or-n-p)
