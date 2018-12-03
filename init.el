@@ -28,6 +28,7 @@
    projectile
    helm-projectile
    all-the-icons
+	 highlight-indent-guides
 ))
 (load "~/.emacs.d/sanemacs.el")
 
@@ -180,3 +181,12 @@
 (define-key projectile-mode-map (kbd "M-m") 'projectile-command-map)
 (require 'helm-projectile)
 (helm-projectile-on)
+
+;; Highlight Indent Guides
+(setq highlight-indent-guides-method 'character)
+(defun dont-highlight-first-level (level responsive display)
+  (if (> 1 level) ; replace `1' with the number of guides you want to hide
+      nil
+    (highlight-indent-guides--highlighter-default level responsive display)))
+
+(setq highlight-indent-guides-highlighter-function 'dont-highlight-first-level)
