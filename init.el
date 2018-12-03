@@ -3,7 +3,6 @@
 	 atom-one-dark-theme
 	 dracula-theme
 	 monokai-theme
-	 ;;	elpy
 	 anaconda-mode
 	 helm
 	 undo-tree
