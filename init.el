@@ -1,33 +1,33 @@
-(setq package-list '(
-  atom-one-dark-theme
-	dracula-theme
-	monokai-theme
-	;;	elpy
-	anaconda-mode
-  helm
-  undo-tree
-  slime
-  org
-  magit
-  diff-hl
-  autopair
-  emmet-mode
-  pug-mode
-  vue-mode
-  yafolding
-  yasnippet
-  irony
-  company
-  company-irony
-  flycheck
-  flycheck-irony
-  cmake-mode
-  neotree
-  bash-completion
-  yafolding
-	projectile
-	helm-projectile
-	all-the-icons
+(setq package-list
+ '(
+   atom-one-dark-theme
+   dracula-theme
+   monokai-theme
+   elpy
+   helm
+   undo-tree
+   slime
+   org
+   magit
+   diff-hl
+   autopair
+   emmet-mode
+   pug-mode
+   vue-mode
+   yafolding
+   yasnippet
+   irony
+   company
+   company-irony
+   flycheck
+   flycheck-irony
+   cmake-mode
+   neotree
+   bash-completion
+   yafolding
+   projectile
+   helm-projectile
+   all-the-icons
 ))
 (load "~/.emacs.d/sanemacs.el")
 
@@ -36,6 +36,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (setq-default tab-width 2)
+(setq indent-tabs-mode nil)
 
 (set-face-attribute 'default nil
                     :family "Source Code Pro"
@@ -45,10 +46,10 @@
 
 ;; Path
 (setenv "PATH" (concat
-		       "/usr/local/bin:"
-		       "/home/doug/.local/bin:"
-		       "/home/doug/.npm/bin:"
-					 (getenv "PATH")))
+                "/usr/local/bin:"
+                "/home/doug/.local/bin:"
+                "/home/doug/.npm/bin:"
+                (getenv "PATH")))
 
 ;;; Confirm Emacs quit
 ;;(setq confirm-kill-emacs 'y-or-n-p)
@@ -62,8 +63,8 @@
 
 ;;; Open corresponding header or source file
 (defun toggle-header-source ()
-	(interactive)
-	(ff-find-other-file nil t))
+  (interactive)
+  (ff-find-other-file nil t))
 (global-set-key (kbd "<f4>") 'toggle-header-source)
 
 ;; Delete trailing whitespace on save
@@ -148,12 +149,9 @@
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
 ;; Python
-;;(setq elpy-rpc-python-command "python3")
-;;(elpy-enable)
-(add-hook 'python-mode-hook 'anaconda-mode)
-(add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+(setq elpy-rpc-python-command "python3")
 (setq python-shell-interpreter "python3")
-
+(elpy-enable)
 
 ;; EShell
 (bash-completion-setup) ;; Bash completion in eshell
