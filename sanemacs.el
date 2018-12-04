@@ -1,3 +1,8 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Sanemacs version 0.0.6 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Disable menu-bar, tool-bar, and scroll-bar
 (menu-bar-mode -1) (tool-bar-mode -1) (scroll-bar-mode -1)
 
 (require 'package)
@@ -32,8 +37,17 @@
   (write-region "" nil custom-file))
 (load custom-file)
 
-;;; Utility functions
+;;; Avoid littering the user's filesystem with backups
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '((".*" . "~/.emacs.d/saves/"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
 
+;;; Utility functions
 (defun sanemacs--package-get-dependencies (pkg-to-check)
   (setq listofdepends nil)
   (dolist (pkg package-alist)

@@ -28,7 +28,9 @@
    projectile
    helm-projectile
    all-the-icons
-	 highlight-indent-guides
+   highlight-indent-guides
+   doom-themes
+   doom-modeline
 ))
 (load "~/.emacs.d/sanemacs.el")
 
@@ -37,7 +39,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (setq-default tab-width 2)
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 
 (set-face-attribute 'default nil
                     :family "Source Code Pro"
@@ -82,6 +84,14 @@
 
 ;; Remove annoying minimize shortcu
 (global-set-key (kbd "C-z") nil)
+
+;; Highlight spaces and tabs differently
+(setq whitespace-style '(face tabs tab-mark trailing))
+(custom-set-faces
+ '(whitespace-tab ((t (:foreground "#636363")))))
+(setq whitespace-display-mappings
+  '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
+(global-whitespace-mode) ; Enable whitespace mode everywhere
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Package Config   ;;
@@ -190,3 +200,6 @@
     (highlight-indent-guides--highlighter-default level responsive display)))
 
 (setq highlight-indent-guides-highlighter-function 'dont-highlight-first-level)
+
+;; Doom modeline
+(doom-modeline-init)
