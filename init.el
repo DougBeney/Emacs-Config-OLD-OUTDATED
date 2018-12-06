@@ -205,7 +205,7 @@
 ;; Doom modeline
 (doom-modeline-init)
 
-;; Symantic Refactor
+;; Semantic Refactor
 (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
 (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
 (global-set-key (kbd "M-RET o") 'srefactor-lisp-one-line)
