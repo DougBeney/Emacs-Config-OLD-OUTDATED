@@ -47,6 +47,9 @@
    kept-old-versions 2
    version-control t)       ; use versioned backups
 
+;;; Lockfiles unfortunately cause more pain than benefit
+(setq create-lockfiles nil)
+
 ;;; Utility functions
 (defun sanemacs--package-get-dependencies (pkg-to-check)
   (setq listofdepends nil)

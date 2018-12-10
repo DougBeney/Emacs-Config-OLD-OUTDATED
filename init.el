@@ -32,6 +32,8 @@
    doom-themes
    doom-modeline
    srefactor
+   yaml-mode
+   sass-mode
 ))
 (load "~/.emacs.d/sanemacs.el")
 
