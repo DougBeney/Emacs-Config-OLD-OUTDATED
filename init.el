@@ -208,7 +208,7 @@
 (doom-modeline-init)
 
 ;; Semantic Refactor
-(require 'cc-mode) ;; Fixes issue on Emacs 26
+(semantic-mode 1)
 (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
 (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
 (global-set-key (kbd "M-RET o") 'srefactor-lisp-one-line)
