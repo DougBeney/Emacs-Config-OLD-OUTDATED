@@ -206,6 +206,7 @@
 (doom-modeline-init)
 
 ;; Semantic Refactor
+(require 'cc-mode)
 (semantic-mode 1)
 (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
 (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
