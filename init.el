@@ -1,40 +1,3 @@
-(setq package-list
- '(
-   atom-one-dark-theme
-   dracula-theme
-   monokai-theme
-   elpy
-   helm
-   undo-tree
-   slime
-   org
-   magit
-   diff-hl
-   autopair
-   emmet-mode
-   pug-mode
-   vue-mode
-   yafolding
-   yasnippet
-   irony
-   company
-   company-irony
-   flycheck
-   flycheck-irony
-   cmake-mode
-   neotree
-   bash-completion
-   yafolding
-   projectile
-   helm-projectile
-   all-the-icons
-   highlight-indent-guides
-   doom-themes
-   doom-modeline
-   srefactor
-   yaml-mode
-   sass-mode
-))
 (load "~/.emacs.d/sanemacs.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -52,16 +15,11 @@
 
 ;; Path
 (setenv "PATH" (concat
+                "/usr/bin:"
                 "/usr/local/bin:"
                 "/home/doug/.local/bin:"
                 "/home/doug/.npm/bin:"
                 (getenv "PATH")))
-
-;;; Confirm Emacs quit
-;;(setq confirm-kill-emacs 'y-or-n-p)
-
-;;; Line number mode
-(global-set-key (kbd "C-c l") 'linum-mode)
 
 ;;; Indent a selection of text using Control+> and Control+<
 (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
@@ -93,126 +51,160 @@
 (custom-set-faces
  '(whitespace-tab ((t (:foreground "#636363")))))
 (setq whitespace-display-mappings
-  '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
+      '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
 (global-whitespace-mode) ; Enable whitespace mode everywhere
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Package Config   ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Autopair
-(autopair-global-mode)
+;;;
+;; Themes
+;;;
 
-;;; diff-hl-mode
-(setq-default diff-hl-mode t)
+(use-package atom-one-dark-theme)
+(use-package dracula-theme)
+(use-package monokai-theme)
+(use-package doom-themes)
 
-;;; vue-mode / mmm-mode
-(setq-default mmm-submode-decoration-level 0)
+;;;
+;; Syntax Modes
+;;;
 
-;;; Neotree
-(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-(setq neo-window-fixed-size nil) ;; Make resizable!
-(global-set-key (kbd "M-0") 'neotree-show)
-(global-set-key (kbd "C-x t t") 'neotree-toggle)
+(use-package pug-mode)
+(use-package yaml-mode)
+(use-package sass-mode)
+(use-package vue-mode :init (setq-default mmm-submode-decoration-level 0))
+(use-package cmake-mode)
+(use-package all-the-icons)
 
-;;; Yafolding
-(define-key yafolding-mode-map (kbd "M-<return>") 'yafolding-toggle-element)
+;;;
+;; Basic Enhancements
+;;;
 
-;;; Helm
-(require 'helm-config)
-(helm-mode 1)
-(global-set-key (kbd "M-x") #'helm-M-x)
-(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(use-package diff-hl
+  :init
+  (add-hook 'prog-mode-hook #'diff-hl-mode)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
-;;; Magit
-(global-set-key (kbd "C-x g") 'magit-status)
+(use-package autopair :init (autopair-global-mode))
 
-;;; eww
-(setq-default eww-search-prefix "https://duckduckgo.com/lite/?q=")
+(use-package undo-tree :init (global-undo-tree-mode))
 
-;;; Slime / Lisp
-(setq inferior-lisp-program "/usr/bin/sbcl")
-(setq slime-contribs '(slime-fancy))
-(add-hook 'slime-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c l") 'slime-repl-clear-buffer)))
+(use-package emmet-mode
+  :commands emmet-mode
+  :init
+  (add-hook 'sgml-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook  'emmet-mode))
 
-;; Undo Tree
-(global-undo-tree-mode)
+(use-package yafolding
+  :commands yafolding-mode
+  :config
+  (define-key yafolding-mode-map (kbd "M-<return>") 'yafolding-toggle-element))
 
-;; Company Mode
-(add-hook 'after-init-hook 'global-company-mode)
-(global-set-key (kbd "M-/") 'company-complete)
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
+(use-package highlight-indent-guides
+  :commands highlight-indent-guides-mode
+  :config
+  (setq highlight-indent-guides-method 'character)
+  (defun dont-highlight-first-level (level responsive display)
+    (if (> 1 level) ; replace `1' with the number of guides you want to hide
+        nil
+      (highlight-indent-guides--highlighter-default level responsive display)))
 
-;; Flycheck
-(add-hook 'c-mode-hook #'flycheck-mode)
-(add-hook 'c++-mode-hook #'flycheck-mode)
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+  (setq highlight-indent-guides-highlighter-function 'dont-highlight-first-level))
 
-;; Irony
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+(use-package doom-modeline
+  :init
+  (doom-modeline-init))
 
-;; Emmet
-(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+;;;
+;; Language-related tools
+;;;
 
-;; Python
-(setq elpy-rpc-python-command "python3")
-(setq python-shell-interpreter "python3")
-(elpy-enable)
+(use-package slime
+  :commands slime
+  :config
+  (setq slime-contribs '(slime-fancy))
+  (add-hook 'slime-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-c l") 'slime-repl-clear-buffer))))
 
-;; EShell
-(bash-completion-setup) ;; Bash completion in eshell
-(global-set-key (kbd "C-S-T") 'eshell)
-(defun eshell/pjects ()
-  (cd "~/Code"))
-(defun eshell/mkcd (dir)
-  (mkdir dir)
-  (cd dir))
+;;;
+;; Packages that turn Emacs into a powerhouse
+;;;
 
-(defun eshell/myclear ()
-  "Clears the eshell the proper way"
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer)
-    (eshell-send-input)))
+(use-package helm
+  :bind ("M-x" . helm-M-x)
+  :bind ("C-x r b" . helm-filtered-bookmarks)
+  :bind ("C-x C-f" . helm-find-files)
+  :init
+  (require 'helm-config)
+  (helm-mode 1))
 
-(add-hook
- 'eshell-mode-hook
- '(lambda()
-    (local-set-key (kbd "C-l") 'eshell/myclear)))
-(put 'downcase-region 'disabled nil)
+(use-package projectile
+  :bind ("M-m" . projectile-command-map)
+  :config
+  (use-package helm-projectile
+    :init
+    (helm-projectile-on))
+  :init
+  (projectile-mode +1)
+  (require 'helm-projectile)
+  (helm-projectile-on))
 
-;; Projectile
-(projectile-mode +1)
-(define-key projectile-mode-map (kbd "M-m") 'projectile-command-map)
-(require 'helm-projectile)
-(helm-projectile-on)
+(use-package magit
+  :bind ("C-x g" . magit-status))
 
-;; Highlight Indent Guides
-(setq highlight-indent-guides-method 'character)
-(defun dont-highlight-first-level (level responsive display)
-  (if (> 1 level) ; replace `1' with the number of guides you want to hide
-      nil
-    (highlight-indent-guides--highlighter-default level responsive display)))
+(use-package yasnippet)
 
-(setq highlight-indent-guides-highlighter-function 'dont-highlight-first-level)
+(use-package company
+  :commands company-complete
+  :bind ("M-/" . company-complete)
+  :init
+  (add-hook 'after-init-hook 'global-company-mode))
 
-;; Doom modeline
-(doom-modeline-init)
+(use-package flycheck
+  :commands flycheck-mode
+  :init
+  (add-hook 'c-mode-hook #'flycheck-mode)
+  (add-hook 'c++-mode-hook #'flycheck-mode))
 
-;; Semantic Refactor
-(require 'cc-mode)
-(semantic-mode 1)
-(define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
-(define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
-(global-set-key (kbd "M-RET o") 'srefactor-lisp-one-line)
-(global-set-key (kbd "M-RET m") 'srefactor-lisp-format-sexp)
-(global-set-key (kbd "M-RET d") 'srefactor-lisp-format-defun)
-(global-set-key (kbd "M-RET b") 'srefactor-lisp-format-buffer)
+(use-package neotree
+  :bind ("M-0" . neotree-show)
+  :bind ("C-x t t" . neotree-toggle)
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (setq neo-window-fixed-size nil))
+
+(use-package lsp-mode
+  :config
+  (require 'lsp-clients) ;; Multiple language configurations out of the box
+  ;;; Enable lsp in all programming modes
+  (add-hook 'prog-mode-hook 'lsp)
+
+  (use-package cquery
+    :config
+    (setq cquery-executable "/usr/local/bin/cquery"))
+
+  ;;; Additional lsp-related packages
+  (use-package lsp-ui
+    :init
+    (setq lsp-ui-sideline-ignore-duplicate t)
+    (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+  (use-package company-lsp
+    :requires company
+    :init
+    (push 'company-lsp company-backends)))
+
+;;;
+;; Non-Coding related packages
+;;;
+
+(use-package org
+  :mode "\\.org$"
+  :bind ("C-c c" . org-capture)
+  :bind ("C-c o" . (lambda () (interactive) (find-file "~/.notes"))))
+(use-package eww
+  :commands eww
+  :config
+  (setq-default eww-search-prefix "https://duckduckgo.com/lite/?q="))
