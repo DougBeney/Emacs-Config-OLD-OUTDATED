@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Sanemacs version 0.0.7 ;;
+;;; Sanemacs version 0.1.0 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Disable menu-bar, tool-bar, and scroll-bar.
