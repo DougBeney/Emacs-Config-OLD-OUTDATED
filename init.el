@@ -77,6 +77,7 @@
 (use-package vue-mode :init (setq-default mmm-submode-decoration-level 0))
 (use-package cmake-mode)
 (use-package all-the-icons)
+(use-package markdown-mode)
 
 ;;;
 ;; Basic Enhancements
@@ -199,16 +200,17 @@
 ;;;
 
 (use-package org
-  :mode (("\\.org$" . org-mode))
+  :mode ("\\.org$" . org-mode)
+  :mode (".notes$" . org-mode)
   :bind ("C-c c" . org-capture)
-  :bind ("C-c o" . (lambda () (interactive) (find-file "~/.notes"))))
+  :bind ("C-c o" . (lambda () (interactive) (find-file "~/.notes")))
+  :config
+  (use-package org-bullets
+    :init (add-hook 'org-mode-hook 'org-bullets-mode)))
 
 (use-package olivetti
-  :mode (("\\.md$" . olivetti-mode))
-  :mode (("\\.org$" . olivetti-mode)))
-
-(use-package markdown-mode
-  :mode (("\\.md$" . olivetti-mode)))
+  :hook (markdown-mode . olivetti-mode)
+  :hook (org-mode .  olivetti-mode))
 
 (use-package eww
   :commands eww
