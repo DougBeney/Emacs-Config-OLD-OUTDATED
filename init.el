@@ -163,12 +163,6 @@
   :init
   (add-hook 'after-init-hook 'global-company-mode))
 
-(use-package flycheck
-  :commands flycheck-mode
-  :init
-  (add-hook 'c-mode-hook #'flycheck-mode)
-  (add-hook 'c++-mode-hook #'flycheck-mode))
-
 (use-package neotree
   :bind ("M-0" . neotree-show)
   :bind ("C-x t t" . neotree-toggle)
@@ -179,18 +173,22 @@
 (use-package lsp-mode
   :config
   (require 'lsp-clients) ;; Multiple language configurations out of the box
+  (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
+
   ;;; Enable lsp in all programming modes
   (add-hook 'prog-mode-hook 'lsp)
 
-  (use-package cquery
-    :config
-    (setq cquery-executable "/usr/local/bin/cquery"))
+  (use-package flycheck)
+  (use-package lsp-ui)
 
-  ;;; Additional lsp-related packages
-  (use-package lsp-ui
-    :init
-    (setq lsp-ui-sideline-ignore-duplicate t)
-    (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+  ;;; C / C++
+  ;; Using clangd
+  (lsp-clients-register-clangd)
+  ;; Using cquery
+  ;; (use-package cquery
+  ;;   :config
+  ;;   (setq cquery-executable "/usr/local/bin/cquery"))
+
   (use-package company-lsp
     :requires company
     :init
@@ -201,9 +199,17 @@
 ;;;
 
 (use-package org
-  :mode "\\.org$"
+  :mode (("\\.org$" . org-mode))
   :bind ("C-c c" . org-capture)
   :bind ("C-c o" . (lambda () (interactive) (find-file "~/.notes"))))
+
+(use-package olivetti
+  :mode (("\\.md$" . olivetti-mode))
+  :mode (("\\.org$" . olivetti-mode)))
+
+(use-package markdown-mode
+  :mode (("\\.md$" . olivetti-mode)))
+
 (use-package eww
   :commands eww
   :config
