@@ -184,11 +184,11 @@
 
   ;;; C / C++
   ;; Using clangd
-  (lsp-clients-register-clangd)
+  ;; (lsp-clients-register-clangd)
   ;; Using cquery
-  ;; (use-package cquery
-  ;;   :config
-  ;;   (setq cquery-executable "/usr/local/bin/cquery"))
+  (use-package cquery
+    :config
+    (setq cquery-executable "/usr/local/bin/cquery"))
 
   (use-package company-lsp
     :requires company
