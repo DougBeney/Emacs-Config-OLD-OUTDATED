@@ -64,9 +64,9 @@
 ;;;
 
 (use-package atom-one-dark-theme)
-(use-package dracula-theme)
-(use-package monokai-theme)
-(use-package doom-themes)
+;; (use-package dracula-theme)
+;; (use-package monokai-theme)
+;; (use-package doom-themes)
 
 ;;;
 ;; Syntax Modes
@@ -126,10 +126,11 @@
 (use-package slime
   :commands slime
   :config
-  (setq slime-contribs '(slime-fancy))
+  (setq inferior-lisp-program "sbcl")
+  (setq slime-contribs '(slime-fancy)
   (add-hook 'slime-mode-hook
             (lambda ()
-              (local-set-key (kbd "C-c l") 'slime-repl-clear-buffer))))
+              (local-set-key (kbd "C-c l") 'slime-repl-clear-buffer)))))
 
 ;;;
 ;; Packages that turn Emacs into a powerhouse
