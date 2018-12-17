@@ -119,9 +119,13 @@
   :init
   (doom-modeline-init))
 
-(use-package ace-jump-mode
+(use-package avy
   :config
-  (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
+  (global-set-key (kbd "C-:") 'avy-goto-char)
+  (global-set-key (kbd "C-\"") 'avy-goto-char-2)
+  (global-set-key (kbd "M-g g") 'avy-goto-line))
+
+(use-package multiple-cursors)
 
 ;;;
 ;; Language-related tools
@@ -135,6 +139,13 @@
   (add-hook 'slime-mode-hook
             (lambda ()
               (local-set-key (kbd "C-c l") 'slime-repl-clear-buffer)))))
+
+(use-package srefactor
+  :config
+  (add-hook 'c-mode-hook 'srefactor-mode)
+  (add-hook 'c++-mode-hook 'srefactor-mode)
+  (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
+  (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point))
 
 ;;;
 ;; Packages that turn Emacs into a powerhouse
