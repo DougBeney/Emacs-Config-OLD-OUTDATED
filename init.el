@@ -119,6 +119,10 @@
   :init
   (doom-modeline-init))
 
+(use-package ace-jump-mode
+  :config
+  (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
+
 ;;;
 ;; Language-related tools
 ;;;
