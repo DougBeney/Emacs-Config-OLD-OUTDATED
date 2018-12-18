@@ -142,8 +142,8 @@
 
 (use-package srefactor
   :config
-  (add-hook 'c-mode-hook 'srefactor-mode)
-  (add-hook 'c++-mode-hook 'srefactor-mode)
+  (add-hook 'c-mode-hook 'semantic-mode)
+  (add-hook 'c++-mode-hook 'semantic-mode)
   (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
   (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point))
 
