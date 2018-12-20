@@ -192,6 +192,7 @@
   :config
   (require 'lsp-clients) ;; Multiple language configurations out of the box
   (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
+  (setq lsp-ui-sideline-enable nil) ;; Disable sideline
 
   ;;; Enable lsp in all programming modes
   (add-hook 'prog-mode-hook 'lsp)
@@ -210,7 +211,10 @@
   (use-package company-lsp
     :requires company
     :init
-    (push 'company-lsp company-backends)))
+    (push 'company-lsp company-backends))
+
+  ;;; Ruby
+  (setq exec-path (append exec-path '("/home/doug/.gem/bin"))))
 
 ;;;
 ;; Non-Coding related packages
