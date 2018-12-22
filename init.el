@@ -119,6 +119,14 @@
   :init
   (doom-modeline-init))
 
+(use-package avy
+  :config
+  (global-set-key (kbd "C-:") 'avy-goto-char)
+  (global-set-key (kbd "C-\"") 'avy-goto-char-2)
+  (global-set-key (kbd "M-g g") 'avy-goto-line))
+
+(use-package multiple-cursors)
+
 ;;;
 ;; Language-related tools
 ;;;
@@ -132,6 +140,13 @@
   (add-hook 'slime-mode-hook
             (lambda ()
               (local-set-key (kbd "C-c l") 'slime-repl-clear-buffer))))
+
+(use-package srefactor
+  :config
+  (add-hook 'c-mode-hook 'semantic-mode)
+  (add-hook 'c++-mode-hook 'semantic-mode)
+  (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
+  (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point))
 
 ;;;
 ;; Packages that turn Emacs into a powerhouse
@@ -178,6 +193,7 @@
   :config
   (require 'lsp-clients) ;; Multiple language configurations out of the box
   (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
+  (setq lsp-ui-sideline-enable nil) ;; Disable sideline
 
   ;;; Enable lsp in certain programming modes
   (add-hook 'c-mode-hook 'lsp)
@@ -200,7 +216,10 @@
   (use-package company-lsp
     :requires company
     :init
-    (push 'company-lsp company-backends)))
+    (push 'company-lsp company-backends))
+
+  ;;; Ruby
+  (setq exec-path (append exec-path '("/home/doug/.gem/bin"))))
 
 ;;;
 ;; Non-Coding related packages
