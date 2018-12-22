@@ -126,11 +126,12 @@
 (use-package slime
   :commands slime
   :config
+  (use-package slime-company)
   (setq inferior-lisp-program "sbcl")
-  (setq slime-contribs '(slime-fancy)
+  (setq slime-contribs '(slime-fancy slime-company))
   (add-hook 'slime-mode-hook
             (lambda ()
-              (local-set-key (kbd "C-c l") 'slime-repl-clear-buffer)))))
+              (local-set-key (kbd "C-c l") 'slime-repl-clear-buffer))))
 
 ;;;
 ;; Packages that turn Emacs into a powerhouse
@@ -178,8 +179,12 @@
   (require 'lsp-clients) ;; Multiple language configurations out of the box
   (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
 
-  ;;; Enable lsp in all programming modes
-  (add-hook 'prog-mode-hook 'lsp)
+  ;;; Enable lsp in certain programming modes
+  (add-hook 'c-mode-hook 'lsp)
+  (add-hook 'c++-mode-hook 'lsp)
+  (add-hook 'python-mode-hook 'lsp)
+  (add-hook 'javsacript-mode-hook 'lsp)
+  (add-hook 'css-mode-hook 'lsp)
 
   (use-package flycheck)
   (use-package lsp-ui)
