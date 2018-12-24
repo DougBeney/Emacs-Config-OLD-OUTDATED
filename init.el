@@ -132,14 +132,16 @@
 ;;;
 
 (use-package slime
-  :commands slime
+  :init
+
+  (use-package ac-slime :after auto-complete)
+  (add-hook 'slime-mode-hook 'set-up-slime-ac)
+  (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+  (eval-after-load "auto-complete"
+    '(add-to-list 'ac-modes 'slime-repl-mode))
   :config
-  (use-package slime-company)
   (setq inferior-lisp-program "sbcl")
-  (setq slime-contribs '(slime-fancy slime-company))
-  (add-hook 'slime-mode-hook
-            (lambda ()
-              (local-set-key (kbd "C-c l") 'slime-repl-clear-buffer))))
+  (setq slime-contribs '(slime-fancy)))
 
 (use-package srefactor
   :config
@@ -176,11 +178,17 @@
 
 (use-package yasnippet)
 
-(use-package company
-  :commands company-complete
-  :bind ("M-/" . company-complete)
-  :init
-  (add-hook 'after-init-hook 'global-company-mode))
+(use-package auto-complete
+  :commands aut-complete
+  :bind ("M-/" . auto-complete)
+  :config
+  (ac-config-default))
+
+;; (use-package company
+;;   :commands company-complete
+;;   :bind ("M-/" . company-complete)
+;;   :init
+;;   (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package neotree
   :bind ("M-0" . neotree-show)
@@ -194,6 +202,7 @@
   (require 'lsp-clients) ;; Multiple language configurations out of the box
   (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
   (setq lsp-ui-sideline-enable nil) ;; Disable sideline
+  (setq lsp-highlight-symbol-at-point nil)
 
   ;;; Enable lsp in certain programming modes
   (add-hook 'c-mode-hook 'lsp)
@@ -213,10 +222,10 @@
     :config
     (setq cquery-executable "/usr/local/bin/cquery"))
 
-  (use-package company-lsp
-    :requires company
-    :init
-    (push 'company-lsp company-backends))
+  ;; (use-package company-lsp
+  ;;   :requires company
+  ;;   :init
+  ;;   (push 'company-lsp company-backends))
 
   ;;; Ruby
   (setq exec-path (append exec-path '("/home/doug/.gem/bin"))))
