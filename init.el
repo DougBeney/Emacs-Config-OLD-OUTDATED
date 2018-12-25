@@ -89,7 +89,11 @@
   (add-hook 'prog-mode-hook #'diff-hl-mode)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
-(use-package autopair :init (autopair-global-mode))
+(use-package paredit
+  :config
+  (add-hook 'prog-mode-hook #'enable-paredit-mode))
+
+;;(use-package autopair :init (autopair-global-mode))
 
 (use-package undo-tree :init (global-undo-tree-mode))
 
@@ -142,6 +146,8 @@
   :config
   (setq inferior-lisp-program "sbcl")
   (setq slime-contribs '(slime-fancy)))
+
+(use-package geiser) ;;; A scheme-related package
 
 (use-package srefactor
   :config
