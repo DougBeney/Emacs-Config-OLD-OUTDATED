@@ -91,7 +91,8 @@
 
 (use-package paredit
   :config
-  (add-hook 'prog-mode-hook #'enable-paredit-mode))
+  (add-hook 'prog-mode-hook #'enable-paredit-mode)
+  (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1))))
 
 ;;(use-package autopair :init (autopair-global-mode))
 
@@ -147,7 +148,14 @@
   (setq inferior-lisp-program "sbcl")
   (setq slime-contribs '(slime-fancy)))
 
-(use-package geiser) ;;; A scheme-related package
+(use-package geiser ;;; A scheme-related package
+  :config
+  (use-package ac-geiser
+    :config
+    (add-hook 'geiser-mode-hook 'ac-geiser-setup)
+    (add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
+    (eval-after-load "auto-complete"
+      '(add-to-list 'ac-modes 'geiser-repl-mode))))
 
 (use-package srefactor
   :config
