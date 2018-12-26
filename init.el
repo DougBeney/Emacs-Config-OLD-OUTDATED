@@ -26,6 +26,9 @@
 (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
 (global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
 
+;;; Highlight current line
+(global-hl-line-mode 1)
+
 ;;; Open corresponding header or source file
 (defun toggle-header-source ()
   (interactive)
