@@ -89,13 +89,11 @@
 
 (use-package diff-hl
   :init
-  (add-hook 'prog-mode-hook #'diff-hl-mode)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
-(use-package paredit
+(use-package autopair
   :config
-  (add-hook 'prog-mode-hook #'enable-paredit-mode)
-  (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1))))
+  (autopair-global-mode))
 
 ;;(use-package autopair :init (autopair-global-mode))
 
@@ -219,7 +217,7 @@
   (require 'lsp-clients) ;; Multiple language configurations out of the box
   (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
   (setq lsp-ui-sideline-enable nil) ;; Disable sideline
-  (setq lsp-highlight-symbol-at-point nil)
+  (remove-hook 'lsp-eldoc-hook #'lsp-document-highlight)
 
   ;;; Enable lsp in certain programming modes
   (add-hook 'c-mode-hook 'lsp)
