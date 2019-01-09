@@ -8,7 +8,7 @@
 (setq-default indent-tabs-mode nil)
 
 (set-face-attribute 'default nil
-                    :family "Source Code Pro"
+                    :family "Roboto Mono"
                     :height 110
                     :weight 'normal
                     :width 'normal)
@@ -58,6 +58,11 @@
       '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
+(use-package shell
+  :config
+  (setq comint-prompt-read-only t)
+  (setq comint-process-echoes t))
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Package Config   ;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -66,8 +71,8 @@
 ;; Themes
 ;;;
 
-(use-package atom-one-dark-theme)
-;; (use-package dracula-theme)
+;;(use-package atom-one-dark-theme)
+(use-package dracula-theme)
 ;; (use-package monokai-theme)
 ;; (use-package doom-themes)
 
@@ -140,7 +145,7 @@
 (use-package slime
   :init
 
-  (use-package ac-slime :after auto-complete)
+  ;; (use-package ac-slime :after auto-complete)
   (add-hook 'slime-mode-hook 'set-up-slime-ac)
   (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
   (eval-after-load "auto-complete"
@@ -151,12 +156,13 @@
 
 (use-package geiser ;;; A scheme-related package
   :config
-  (use-package ac-geiser
-    :config
-    (add-hook 'geiser-mode-hook 'ac-geiser-setup)
-    (add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
-    (eval-after-load "auto-complete"
-      '(add-to-list 'ac-modes 'geiser-repl-mode))))
+  ;; (use-package ac-geiser
+  ;;   :config
+  ;;   (add-hook 'geiser-mode-hook 'ac-geiser-setup)
+  ;;   (add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
+  ;;   (eval-after-load "auto-complete"
+  ;;     '(add-to-list 'ac-modes 'geiser-repl-mode)))
+  )
 
 (use-package srefactor
   :config
@@ -164,6 +170,8 @@
   (add-hook 'c++-mode-hook 'semantic-mode)
   (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
   (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point))
+
+(use-package pyvenv)
 
 ;;;
 ;; Packages that turn Emacs into a powerhouse
@@ -183,6 +191,9 @@
   (use-package helm-projectile
     :init
     (helm-projectile-on))
+  ;;; Setting ignored projectile directories
+  (add-to-list 'projectile-globally-ignored-directories ".cquery_cached_index")
+  (add-to-list 'projectile-globally-ignored-directories "qmake")
   :init
   (projectile-mode +1)
   (require 'helm-projectile)
@@ -193,17 +204,17 @@
 
 (use-package yasnippet)
 
-(use-package auto-complete
-  :commands aut-complete
-  :bind ("M-/" . auto-complete)
-  :config
-  (ac-config-default))
+;; (use-package auto-complete
+;;   :commands aut-complete
+;;   :bind ("M-/" . auto-complete)
+;;   :config
+;;   (ac-config-default))
 
-;; (use-package company
-;;   :commands company-complete
-;;   :bind ("M-/" . company-complete)
-;;   :init
-;;   (add-hook 'after-init-hook 'global-company-mode))
+(use-package company
+  :commands company-complete
+  :bind ("M-/" . company-complete)
+  :init
+  (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package neotree
   :bind ("M-0" . neotree-show)
@@ -230,20 +241,29 @@
   (use-package lsp-ui)
 
   ;;; C / C++
-  ;; Using clangd
-  ;; (lsp-clients-register-clangd)
   ;; Using cquery
   (use-package cquery
     :config
     (setq cquery-executable "/usr/local/bin/cquery"))
 
-  ;; (use-package company-lsp
-  ;;   :requires company
-  ;;   :init
-  ;;   (push 'company-lsp company-backends))
+  (use-package company-lsp
+    :requires company
+    :init
+    (push 'company-lsp company-backends))
 
   ;;; Ruby
   (setq exec-path (append exec-path '("/home/doug/.gem/bin"))))
+
+;;; Eyebrowse - workspaces in Emacs
+(use-package eyebrowse
+  :diminish eyebrowse-mode
+  :config (progn
+            (define-key eyebrowse-mode-map (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
+            (define-key eyebrowse-mode-map (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
+            (define-key eyebrowse-mode-map (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
+            (define-key eyebrowse-mode-map (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
+            (eyebrowse-mode t)
+            (setq eyebrowse-new-workspace t)))
 
 ;;;
 ;; Non-Coding related packages
@@ -266,3 +286,4 @@
   :commands eww
   :config
   (setq-default eww-search-prefix "https://duckduckgo.com/lite/?q="))
+(put 'erase-buffer 'disabled nil)
