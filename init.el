@@ -1,3 +1,4 @@
+
 (load "~/.emacs.d/sanemacs.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -72,8 +73,8 @@
 ;;;
 
 ;;(use-package atom-one-dark-theme)
-(use-package dracula-theme)
-;; (use-package monokai-theme)
+;;(use-package dracula-theme)
+(use-package monokai-theme)
 ;; (use-package doom-themes)
 
 ;;;
@@ -142,6 +143,12 @@
 ;; Language-related tools
 ;;;
 
+(defun django-shell ()
+  (interactive)
+  (let ((python-shell-interpreter (read-file-name "Locate manage.py "))
+        (python-shell-interpreter-args "shell"))
+    (run-python (python-shell-calculate-command) nil t)))
+
 (use-package slime
   :init
 
@@ -194,6 +201,7 @@
   ;;; Setting ignored projectile directories
   (add-to-list 'projectile-globally-ignored-directories ".cquery_cached_index")
   (add-to-list 'projectile-globally-ignored-directories "qmake")
+  (add-to-list 'projectile-globally-ignored-directories ".venv")
   :init
   (projectile-mode +1)
   (require 'helm-projectile)
