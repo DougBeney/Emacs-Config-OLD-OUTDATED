@@ -23,6 +23,8 @@
                 "/home/doug/.npm/bin:"
                 (getenv "PATH")))
 
+(add-to-list 'exec-path "/home/doug/.npm/bin")
+
 ;;; Indent a selection of text using Control+> and Control+<
 (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
 (global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
@@ -84,7 +86,6 @@
 (use-package pug-mode)
 (use-package yaml-mode)
 (use-package sass-mode)
-(use-package vue-mode :init (setq-default mmm-submode-decoration-level 0))
 (use-package cmake-mode)
 (use-package all-the-icons)
 (use-package markdown-mode)
@@ -244,9 +245,12 @@
   (add-hook 'python-mode-hook 'lsp)
   (add-hook 'javsacript-mode-hook 'lsp)
   (add-hook 'css-mode-hook 'lsp)
+  (add-hook 'vue-mode-hook 'lsp)
+
 
   (use-package flycheck)
   (use-package lsp-ui)
+  (use-package vue-mode)
 
   ;;; C / C++
   ;; Using cquery
