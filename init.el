@@ -24,10 +24,6 @@
 
 (add-to-list 'exec-path "/home/doug/.npm/bin")
 
-;;; Indent a selection of text using Control+> and Control+<
-(global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
-(global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
-
 ;;; Highlight current line
 (global-hl-line-mode 1)
 
