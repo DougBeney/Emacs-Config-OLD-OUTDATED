@@ -1,3 +1,11 @@
+;; Place font before sanemacs so that I can change the
+;; font size in custom.el on a computer-by-computer basis.
+(set-face-attribute 'default nil
+                    :family "Roboto Mono"
+                    :height 90
+                    :weight 'normal
+                    :width 'normal)
+
 (load "~/.emacs.d/sanemacs.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -6,12 +14,6 @@
 
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
-
-(set-face-attribute 'default nil
-                    :family "Roboto Mono"
-                    :height 110
-                    :weight 'normal
-                    :width 'normal)
 
 ;; Path
 (setenv "PATH" (concat
