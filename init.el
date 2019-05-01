@@ -25,7 +25,7 @@
 (add-to-list 'exec-path "/home/doug/.npm/bin")
 
 ;;; Highlight current line
-(global-hl-line-mode 1)
+;;(global-hl-line-mode 1)
 
 ;;; Open corresponding header or source file
 (defun toggle-header-source ()
@@ -249,9 +249,9 @@
 
   ;;; C / C++
   ;; Using cquery
-  (use-package cquery
-    :config
-    (setq cquery-executable "/usr/local/bin/cquery"))
+  ;; (use-package cquery
+  ;;   :config
+  ;;   (setq cquery-executable "/usr/local/bin/cquery"))
 
   (use-package company-lsp
     :requires company
@@ -278,7 +278,7 @@
 
 (use-package org
   :mode ("\\.org$" . org-mode)
-  :mode (".notes$" . org-mode)
+  :mode ("~/Drive/Notes/index.org" . org-mode)
   :bind ("C-c c" . org-capture)
   :bind ("C-c o" . (lambda () (interactive) (find-file "~/.notes")))
   :config
