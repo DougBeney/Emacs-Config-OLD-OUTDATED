@@ -25,7 +25,7 @@
 (add-to-list 'exec-path "/home/doug/.npm/bin")
 
 ;;; Highlight current line
-(global-hl-line-mode 1)
+;;(global-hl-line-mode 1)
 
 ;;; Open corresponding header or source file
 (defun toggle-header-source ()
@@ -72,7 +72,7 @@
 ;;(use-package atom-one-dark-theme)
 (use-package dracula-theme)
 ;;(use-package monokai-theme)
-;; (use-package doom-themes)
+;;(use-package doom-themes)
 
 ;;;
 ;; Syntax Modes
@@ -249,9 +249,9 @@
 
   ;;; C / C++
   ;; Using cquery
-  (use-package cquery
-    :config
-    (setq cquery-executable "/usr/local/bin/cquery"))
+  ;; (use-package cquery
+  ;;   :config
+  ;;   (setq cquery-executable "/usr/bin/cquery"))
 
   (use-package company-lsp
     :requires company
@@ -280,7 +280,7 @@
   :mode ("\\.org$" . org-mode)
   :mode (".notes$" . org-mode)
   :bind ("C-c c" . org-capture)
-  :bind ("C-c o" . (lambda () (interactive) (find-file "~/.notes")))
+  :bind ("C-c o" . (lambda () (interactive) (find-file "~/Drive/Notes/index.org")))
   :config
   (use-package org-bullets
     :init (add-hook 'org-mode-hook 'org-bullets-mode)))
