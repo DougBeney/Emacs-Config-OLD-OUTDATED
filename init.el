@@ -220,14 +220,31 @@
   :commands company-complete
   :bind ("M-/" . company-complete)
   :init
-  (add-hook 'after-init-hook 'global-company-mode))
+  (add-hook 'after-init-hook 'global-company-mode)
+  (eval-after-load 'company
+    '(add-to-list 'company-backends 'company-irony)))
 
-(use-package neotree
-  :bind ("M-0" . neotree-show)
-  :bind ("C-x t t" . neotree-toggle)
-  :config
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  (setq neo-window-fixed-size nil))
+;; (use-package neotree
+;;   :bind ("M-0" . neotree-show)
+;;   :bind ("C-x t t" . neotree-toggle)
+;;   :config
+;;   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+;;   (setq neo-window-fixed-size nil))
+
+(use-package treemacs
+  :bind ("C-x t t" . treemacs)
+  :bind ("M-0" . treemacs-select-window))
+
+;; (use-package irony
+;;   :config
+;;   (add-hook 'c++-mode-hook 'irony-mode)
+;;   (add-hook 'c-mode-hook 'irony-mode)
+;;   (add-hook 'objc-mode-hook 'irony-mode)
+;;   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+;;   (use-package flycheck
+;;     :config
+;;     (eval-after-load 'flycheck
+;;       '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))))
 
 (use-package lsp-mode
   :config
@@ -250,10 +267,10 @@
   (use-package vue-mode)
 
   ;;; C / C++
-  ;; Using cquery
-  ;; (use-package cquery
-  ;;   :config
-  ;;   (setq cquery-executable "/usr/bin/cquery"))
+  ;;Using cquery
+  (use-package cquery
+    :config
+    (setq cquery-executable "/usr/bin/cquery"))
 
   (use-package company-lsp
     :requires company
