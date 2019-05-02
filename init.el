@@ -2,7 +2,7 @@
 ;; font size in custom.el on a computer-by-computer basis.
 (set-face-attribute 'default nil
                     :family "Roboto Mono"
-                    :height 90
+                    :height 100
                     :weight 'normal
                     :width 'normal)
 
