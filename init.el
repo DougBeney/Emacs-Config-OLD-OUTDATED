@@ -1,3 +1,11 @@
+;; Place font before sanemacs so that I can change the
+;; font size in custom.el on a computer-by-computer basis.
+(set-face-attribute 'default nil
+                    :family "Roboto Mono"
+                    :height 90
+                    :weight 'normal
+                    :width 'normal)
+
 (load "~/.emacs.d/sanemacs.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -6,12 +14,6 @@
 
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
-
-(set-face-attribute 'default nil
-                    :family "Roboto Mono"
-                    :height 110
-                    :weight 'normal
-                    :width 'normal)
 
 ;; Path
 (setenv "PATH" (concat
@@ -70,9 +72,9 @@
 ;;;
 
 ;;(use-package atom-one-dark-theme)
-(use-package dracula-theme)
-;;(use-package monokai-theme)
-;;(use-package doom-themes)
+;;(use-package dracula-theme)
+(use-package monokai-theme)
+;; (use-package doom-themes)
 
 ;;;
 ;; Syntax Modes
@@ -278,7 +280,7 @@
 
 (use-package org
   :mode ("\\.org$" . org-mode)
-  :mode (".notes$" . org-mode)
+  :mode ("~/Drive/Notes/index.org" . org-mode)
   :bind ("C-c c" . org-capture)
   :bind ("C-c o" . (lambda () (interactive) (find-file "~/Drive/Notes/index.org")))
   :config
