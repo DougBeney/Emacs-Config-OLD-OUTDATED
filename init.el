@@ -99,6 +99,10 @@
   :config
   (autopair-global-mode))
 
+;;; Expand region
+(use-package expand-region
+  :bind ("C-;" . er/expand-region))
+
 ;;(use-package autopair :init (autopair-global-mode))
 
 (use-package undo-tree :init (global-undo-tree-mode))
@@ -129,6 +133,7 @@
   :init
   (doom-modeline-init))
 
+;;; Avy, an alternative to ace
 (use-package avy
   :config
   (global-set-key (kbd "C-:") 'avy-goto-char)
