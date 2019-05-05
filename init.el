@@ -306,8 +306,9 @@
   :bind ("C-c c" . org-capture)
   :bind ("C-c o" . (lambda () (interactive) (find-file "~/Drive/Notes/index.org")))
   :config
-  (use-package org-bullets
-    :init (add-hook 'org-mode-hook 'org-bullets-mode)))
+  ;; (use-package org-bullets
+  ;;   :init (add-hook 'org-mode-hook 'org-bullets-mode))
+  )
 
 (use-package olivetti
   :hook (markdown-mode . olivetti-mode)
