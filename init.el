@@ -15,6 +15,9 @@
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
 
+;; Compile shortcut key
+(global-set-key (kbd "C-c C-,") #'recompile)
+
 ;; Path
 (setenv "PATH" (concat
                 "/usr/bin:"
@@ -73,8 +76,8 @@
 
 ;;(use-package atom-one-dark-theme)
 ;;(use-package dracula-theme)
-(use-package monokai-theme)
-;; (use-package doom-themes)
+;;(use-package monokai-theme)
+(use-package doom-themes)
 
 ;;;
 ;; Syntax Modes
@@ -154,12 +157,8 @@
 
 (use-package slime
   :init
-
-  ;; (use-package ac-slime :after auto-complete)
-  (add-hook 'slime-mode-hook 'set-up-slime-ac)
-  (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-  (eval-after-load "auto-complete"
-    '(add-to-list 'ac-modes 'slime-repl-mode))
+  (use-package slime-company)
+  (slime-setup '(slime-fancy slime-company))
   :config
   (setq inferior-lisp-program "sbcl")
   (setq slime-contribs '(slime-fancy)))
@@ -229,16 +228,16 @@
   (eval-after-load 'company
     '(add-to-list 'company-backends 'company-irony)))
 
-;; (use-package neotree
-;;   :bind ("M-0" . neotree-show)
-;;   :bind ("C-x t t" . neotree-toggle)
-;;   :config
-;;   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-;;   (setq neo-window-fixed-size nil))
+(use-package neotree
+  :bind ("M-0" . neotree-show)
+  :bind ("C-x t t" . neotree-toggle)
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (setq neo-window-fixed-size nil))
 
-(use-package treemacs
-  :bind ("C-x t t" . treemacs)
-  :bind ("M-0" . treemacs-select-window))
+;; (use-package treemacs
+;;   :bind ("C-x t t" . treemacs)
+;;   :bind ("M-0" . treemacs-select-window))
 
 ;; (use-package irony
 ;;   :config
