@@ -309,9 +309,9 @@
   ;;   :init (add-hook 'org-mode-hook 'org-bullets-mode))
   )
 
-(use-package olivetti
-  :hook (markdown-mode . olivetti-mode)
-  :hook (org-mode .  olivetti-mode))
+;; (use-package olivetti
+;;   :hook (markdown-mode . olivetti-mode)
+;;   :hook (org-mode .  olivetti-mode))
 
 (use-package eww
   :commands eww
