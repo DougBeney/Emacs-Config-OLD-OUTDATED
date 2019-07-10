@@ -1,4 +1,4 @@
-;; Place font before sanemacs so that I can change the
+ ;; Place font before sanemacs so that I can change the
 ;; font size in custom.el on a computer-by-computer basis.
 (set-face-attribute 'default nil
                     :family "Roboto Mono"
@@ -75,7 +75,7 @@
 ;;;
 
 ;;(use-package atom-one-dark-theme)
-;;(use-package dracula-theme)
+(use-package dracula-theme :defer t)
 ;;(use-package doom-themes)
 
 ;;;
@@ -88,6 +88,13 @@
 (use-package cmake-mode)
 (use-package all-the-icons)
 (use-package markdown-mode)
+
+;;;
+;; Joining the dark side
+;;;
+(use-package evil
+  :config
+  (evil-mode 1))
 
 ;;;
 ;; Basic Enhancements
