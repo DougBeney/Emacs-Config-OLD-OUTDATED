@@ -92,9 +92,9 @@
 ;;;
 ;; Joining the dark side
 ;;;
-(use-package evil
-  :config
-  (evil-mode 1))
+;; (use-package evil
+;;   :config
+;;   (evil-mode 1))
 
 ;;;
 ;; Basic Enhancements
