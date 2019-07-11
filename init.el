@@ -216,9 +216,7 @@
   (helm-projectile-on))
 
 (use-package magit
-  :bind ("C-x g" . magit-status)
-  :config
-  (use-package evil-magit))
+  :bind ("C-x g" . magit-status))
 
 (use-package yasnippet)
 
@@ -239,18 +237,6 @@
 (use-package neotree
   :bind ("M-0" . neotree-show)
   :bind ("C-x t t" . neotree-toggle)
-  :init
-  (add-hook 'neotree-mode-hook
-            (lambda ()
-              (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
-              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "g") 'neotree-refresh)
-              (define-key evil-normal-state-local-map (kbd "n") 'neotree-next-line)
-              (define-key evil-normal-state-local-map (kbd "p") 'neotree-previous-line)
-              (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
-              (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)))
   :config
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (setq neo-window-fixed-size nil))
