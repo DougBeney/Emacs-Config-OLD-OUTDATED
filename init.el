@@ -152,6 +152,16 @@
 
 (use-package multiple-cursors)
 
+;;; Open terminal in working directory using C-c t
+(defun open-terminal-in-workdir ()
+  (interactive)
+  (let ((workdir (if (projectile-project-root)
+                     (projectile-project-root)
+                   default-directory)))
+    (call-process-shell-command (concat "konsole --workdir " workdir) nil 0)))
+
+(global-set-key (kbd "C-c t") 'open-terminal-in-workdir)
+
 ;;;
 ;; Language-related tools
 ;;;
@@ -166,18 +176,18 @@
   :init
   (use-package slime-company)
   (slime-setup '(slime-fancy slime-company))
-  :config
+  :configfdfdf
   (setq inferior-lisp-program "sbcl")
   (setq slime-contribs '(slime-fancy)))
 
 (use-package geiser ;;; A scheme-related package
   :config
   ;; (use-package ac-geiser
-  ;;   :config
+  ;;   :config0
   ;;   (add-hook 'geiser-mode-hook 'ac-geiser-setup)
   ;;   (add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
   ;;   (eval-after-load "auto-complete"
-  ;;     '(add-to-list 'ac-modes 'geiser-repl-mode)))
+  ;;     '(add-to-list 'ac-modfdfdfdes 'geiser-repl-mode)))
   )
 
 (use-package srefactor
