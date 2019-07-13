@@ -8,7 +8,7 @@ url/
 auto-save-list/
 irony/
 elpa/
-custom.el                # I'd like to include custom.el
+custom.el
 session.*
 .python-environments/
 bookmarks
