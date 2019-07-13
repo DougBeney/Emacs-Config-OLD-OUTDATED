@@ -28,6 +28,7 @@
                 (getenv "PATH")))
 
 (add-to-list 'exec-path "/home/doug/.npm/bin")
+(add-to-list 'exec-path "/home/doug/.local/bin")
 
 ;;; Highlight current line
 ;;(global-hl-line-mode 1)
