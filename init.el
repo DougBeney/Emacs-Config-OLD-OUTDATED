@@ -75,9 +75,9 @@
 ;; Themes
 ;;;
 
-;;(use-package atom-one-dark-theme)
+(use-package atom-one-dark-theme :defer t)
 (use-package dracula-theme :defer t)
-;;(use-package doom-themes)
+(use-package doom-themes :defer t)
 
 ;;;
 ;; Syntax Modes
@@ -209,7 +209,6 @@
     (helm-projectile-on))
   ;;; Setting ignored projectile directories
   (add-to-list 'projectile-globally-ignored-directories ".cquery_cached_index")
-  (add-to-list 'projectile-globally-ignored-directories "qmake")
   (add-to-list 'projectile-globally-ignored-directories ".venv")
   :init
   (projectile-mode +1)
@@ -316,9 +315,10 @@
   ;;   :init (add-hook 'org-mode-hook 'org-bullets-mode))
   )
 
-;; (use-package olivetti
-;;   :hook (markdown-mode . olivetti-mode)
-;;   :hook (org-mode .  olivetti-mode))
+(use-package olivetti
+  ;; :hook (markdown-mode . olivetti-mode)
+  ;; :hook (org-mode .  olivetti-mode)
+)
 
 (use-package eww
   :commands eww
