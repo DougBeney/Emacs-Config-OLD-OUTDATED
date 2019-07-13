@@ -325,7 +325,3 @@
   :config
   (setq-default eww-search-prefix "https://duckduckgo.com/lite/?q="))
 (put 'erase-buffer 'disabled nil)
-
-(use-package emojify
-  :config
-  (add-hook 'after-init-hook #'global-emojify-mode))
