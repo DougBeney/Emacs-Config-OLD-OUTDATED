@@ -1,4 +1,4 @@
- ;; Place font before sanemacs so that I can change the
+;; Place font before sanemacs so that I can change the
 ;; font size in custom.el on a computer-by-computer basis.
 (set-face-attribute 'default nil
                     :family "Roboto Mono"
@@ -177,7 +177,7 @@
   :init
   (use-package slime-company)
   (slime-setup '(slime-fancy slime-company))
-  :configfdfdf
+  :config
   (setq inferior-lisp-program "sbcl")
   (setq slime-contribs '(slime-fancy)))
 
