@@ -231,75 +231,59 @@
 
 (use-package yasnippet)
 
-;; (use-package auto-complete
-;;   :commands aut-complete
-;;   :bind ("M-/" . auto-complete)
-;;   :config
-;;   (ac-config-default))
-
 (use-package company
   :commands company-complete
   :bind ("M-/" . company-complete)
   :init
+  (setq company-idle-delay 0)
   (add-hook 'after-init-hook 'global-company-mode)
-  (eval-after-load 'company
-    '(add-to-list 'company-backends 'company-irony)))
 
-(use-package neotree
-  :bind ("M-0" . neotree-show)
-  :bind ("C-x t t" . neotree-toggle)
-  :config
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  (setq neo-window-fixed-size nil))
+  ;; (use-package company-lsp
+  ;;   :requires company
+  ;;   :init
+  ;;   (push 'company-lsp company-backends))
 
-;; (use-package treemacs
-;;   :bind ("C-x t t" . treemacs)
-;;   :bind ("M-0" . treemacs-select-window))
+  ;; (use-package company-irony
+  ;;   :requires irony
+  ;;   :config
+  ;;   (eval-after-load 'company
+  ;;     '(add-to-list 'company-backends 'company-irony)))
+  )
 
 ;; (use-package irony
 ;;   :config
 ;;   (add-hook 'c++-mode-hook 'irony-mode)
 ;;   (add-hook 'c-mode-hook 'irony-mode)
-;;   (add-hook 'objc-mode-hook 'irony-mode)
 ;;   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-;;   (use-package flycheck
+
+;; (use-package lsp-mode
+;;   :config
+;;   (require 'lsp-clients) ;; Multiple language configurations out of the box
+;;   (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
+;;   (setq lsp-ui-sideline-enable nil) ;; Disable sideline
+;;   (remove-hook 'lsp-eldoc-hook #'lsp-document-highlight)
+
+;;   ;;; Enable lsp in certain programming modes
+;;   (add-hook 'c-mode-hook 'lsp)
+;;   (add-hook 'c++-mode-hook 'lsp)
+;;   (add-hook 'python-mode-hook 'lsp)
+;;   (add-hook 'javsacript-mode-hook 'lsp)
+;;   (add-hook 'css-mode-hook 'lsp)
+;;   (add-hook 'vue-mode-hook 'lsp)
+
+
+;;   (use-package flycheck)
+;;   (use-package lsp-ui)
+;;   (use-package vue-mode)
+
+;;   ;;; C / C++
+;;   ;;Using cquery
+;;   (use-package cquery
 ;;     :config
-;;     (eval-after-load 'flycheck
-;;       '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))))
+;;     (setq cquery-executable "/usr/bin/cquery"))
 
-(use-package lsp-mode
-  :config
-  (require 'lsp-clients) ;; Multiple language configurations out of the box
-  (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
-  (setq lsp-ui-sideline-enable nil) ;; Disable sideline
-  (remove-hook 'lsp-eldoc-hook #'lsp-document-highlight)
-
-  ;;; Enable lsp in certain programming modes
-  (add-hook 'c-mode-hook 'lsp)
-  (add-hook 'c++-mode-hook 'lsp)
-  (add-hook 'python-mode-hook 'lsp)
-  (add-hook 'javsacript-mode-hook 'lsp)
-  (add-hook 'css-mode-hook 'lsp)
-  (add-hook 'vue-mode-hook 'lsp)
-
-
-  (use-package flycheck)
-  (use-package lsp-ui)
-  (use-package vue-mode)
-
-  ;;; C / C++
-  ;;Using cquery
-  (use-package cquery
-    :config
-    (setq cquery-executable "/usr/bin/cquery"))
-
-  (use-package company-lsp
-    :requires company
-    :init
-    (push 'company-lsp company-backends))
-
-  ;;; Ruby
-  (setq exec-path (append exec-path '("/home/doug/.gem/bin"))))
+;;   ;;; Ruby
+;;   (setq exec-path (append exec-path '("/home/doug/.gem/bin"))))
 
 ;;; Eyebrowse - workspaces in Emacs
 (use-package eyebrowse
