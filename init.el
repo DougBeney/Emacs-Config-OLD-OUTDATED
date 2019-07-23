@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 ;; Fix bullshit bug
 (setq-default gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-=======
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
->>>>>>> cf1c1163723d5ab09de0256d42e56d201f79d0ba
 
 ;; Place font before sanemacs so that I can change the
 ;; font size in custom.el on a computer-by-computer basis.
