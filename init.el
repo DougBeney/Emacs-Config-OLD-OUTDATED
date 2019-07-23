@@ -198,7 +198,9 @@
   (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
   (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point))
 
-(use-package pyvenv)
+(use-package elpy
+  :init
+  (elpy-enable))
 
 ;;;
 ;; Packages that turn Emacs into a powerhouse
@@ -229,7 +231,9 @@
 (use-package magit
   :bind ("C-x g" . magit-status))
 
-(use-package yasnippet)
+(use-package yasnippet
+  :init
+  (use-package yasnippet-snippets))
 
 (use-package company
   :commands company-complete
@@ -237,6 +241,7 @@
   :init
   (setq company-idle-delay 0)
   (add-hook 'after-init-hook 'global-company-mode)
+  (add-to-list 'company-backends 'company-yasnippet)
 
   ;; (use-package company-lsp
   ;;   :requires company
