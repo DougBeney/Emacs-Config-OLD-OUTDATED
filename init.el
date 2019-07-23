@@ -1,3 +1,6 @@
+;; Fix bullshit bug
+(setq-default gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 ;; Place font before sanemacs so that I can change the
 ;; font size in custom.el on a computer-by-computer basis.
 (set-face-attribute 'default nil
@@ -159,7 +162,7 @@
                      (projectile-project-root)
                    default-directory)))
     (call-process-shell-command
-     (concat "konsole --workdir " workdir) nil 0)))
+     (concat "urxvt -cd " workdir) nil 0)))
 
 (global-set-key (kbd "C-c t") 'open-terminal-in-workdir)
 
