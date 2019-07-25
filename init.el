@@ -283,18 +283,11 @@
 
 (use-package org
   :mode ("\\.org$" . org-mode)
-  :mode ("~/Drive/Notes/index.org" . org-mode)
-  :bind ("C-c c" . org-capture)
-  :bind ("C-c o" . (lambda () (interactive) (find-file "~/Drive/Notes/index.org")))
-  :config
-  ;; (use-package org-bullets
-  ;;   :init (add-hook 'org-mode-hook 'org-bullets-mode))
-  )
+  :bind ("C-c o" . (lambda () (find-file "~/Drive/Notes/index.org")))
+  :bind ("C-c c" . org-capture))
 
 (use-package olivetti
-  ;; :hook (markdown-mode . olivetti-mode)
-  ;; :hook (org-mode .  olivetti-mode)
-)
+  :hook (markdown-mode . olivetti-mode))
 
 (use-package eww
   :commands eww
