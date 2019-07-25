@@ -281,9 +281,13 @@
 ;; Non-Coding related packages
 ;;;
 
+(defun org-open-index ()
+  (interactive)
+  (lambda () (find-file "~/Drive/Notes/index.org")))
+
 (use-package org
   :mode ("\\.org$" . org-mode)
-  :bind ("C-c o" . (lambda () (find-file "~/Drive/Notes/index.org")))
+  :bind ("C-c o" . org-open-index)
   :bind ("C-c c" . org-capture))
 
 (use-package olivetti
