@@ -40,9 +40,13 @@
 (defun toggle-header-source ()
   (interactive)
   (ff-find-other-file nil t))
-(add-hook 'c-mode-hook
-          (lambda ()
-            (local-set-key (kbd "<f4>") 'toggle-header-source)))
+
+(defun c-modes-functions ()
+  (lambda ()
+    (local-set-key (kbd "<f4>") 'toggle-header-source)))
+
+(add-hook 'c-mode-hook #'c-modes-functions)
+(add-hook 'c++-mode-hook #'c-modes-functions)
 
 ;; Delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -227,40 +231,40 @@
 (use-package magit
   :bind ("C-x g" . magit-status))
 
-(use-package yasnippet
-  :init
-  (use-package yasnippet-snippets))
-
 (use-package company
   :commands company-complete
   :bind ("M-/" . company-complete)
-  :hook (after-init-hook . global-company-mode)
-  :init
-  (use-package company-lsp)
+  :hook (after-init . global-company-mode)
   :config
-  (setq company-idle-delay 0)
-  (push 'company-yasnippet company-backends)
-  (push 'company-lsp company-backends))
+  (setq company-idle-delay 0))
+
+(use-package yasnippet
+  :init
+  (use-package yasnippet-snippets)
+  (push 'company-yasnippet company-backends))
+
+(use-package flycheck
+  :hook ((c-mode c++-mode javascript-mode) . flycheck-mode))
 
 (use-package lsp-mode
+  :hook ((c-mode
+          c++-mode
+          javascript-mode
+          vue-mode
+          css-mode) . lsp)
   :config
-  (use-package flycheck)
-  (use-package lsp-ui
-    :config
-    (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
-    (setq lsp-ui-sideline-enable nil) ;; Disable sideline)
+  (require 'lsp-clients) ;; Multiple language configurations out of the box
   (use-package ccls) ;; C/C++ language server
 
-  (require 'lsp-clients) ;; Multiple language configurations out of the box
+  (use-package lsp-ui
+    :hook (lsp-mode . lsp-ui-mode)
+    :config
+    ;; Don't use flymake; we'll use flycheck.
+    (setq lsp-prefer-flymake nil))
 
-  ;; (remove-hook 'lsp-eldoc-hook #'lsp-document-highlight)
-
-  ;;; Enable lsp in certain programming modes
-  (add-hook 'c-mode-hook 'lsp)
-  (add-hook 'c++-mode-hook 'lsp)
-  (add-hook 'javsacript-mode-hook 'lsp)
-  (add-hook 'css-mode-hook 'lsp)
-  (add-hook 'vue-mode-hook 'lsp)))
+  (use-package company-lsp
+    :init
+    (push 'company-lsp company-backends)))
 
 ;;; Eyebrowse - workspaces in Emacs
 (use-package eyebrowse
