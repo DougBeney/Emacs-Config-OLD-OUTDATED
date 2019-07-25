@@ -40,7 +40,7 @@
 (defun toggle-header-source ()
   (interactive)
   (ff-find-other-file nil t))
-(add-hook c-mode-hook
+(add-hook 'c-mode-hook
           (lambda ()
             (local-set-key (kbd "<f4>") 'toggle-header-source)))
 
@@ -249,6 +249,7 @@
     :config
     (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
     (setq lsp-ui-sideline-enable nil) ;; Disable sideline)
+  (use-package ccls) ;; C/C++ language server
 
   (require 'lsp-clients) ;; Multiple language configurations out of the box
 
@@ -259,7 +260,7 @@
   (add-hook 'c++-mode-hook 'lsp)
   (add-hook 'javsacript-mode-hook 'lsp)
   (add-hook 'css-mode-hook 'lsp)
-  (add-hook 'vue-mode-hook 'lsp))
+  (add-hook 'vue-mode-hook 'lsp)))
 
 ;;; Eyebrowse - workspaces in Emacs
 (use-package eyebrowse
