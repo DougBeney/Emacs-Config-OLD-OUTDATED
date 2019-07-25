@@ -34,13 +34,15 @@
 (add-to-list 'exec-path "/home/doug/.local/bin")
 
 ;;; Highlight current line
-;;(global-hl-line-mode 1)
+;;;(global-hl-line-mode 1)
 
 ;;; Open corresponding header or source file
 (defun toggle-header-source ()
   (interactive)
   (ff-find-other-file nil t))
-(global-set-key (kbd "<f4>") 'toggle-header-source)
+(add-hook c-mode-hook
+          (lambda ()
+            (local-set-key (kbd "<f4>") 'toggle-header-source)))
 
 ;; Delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -68,7 +70,7 @@
 (use-package shell
   :config
   (setq comint-prompt-read-only t)
-  (setq comint-process-echoes t))
+  (setq comint-process-echoes nil))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Package Config   ;;
@@ -87,6 +89,9 @@
 ;;;
 
 (use-package pug-mode)
+(use-package vue-mode)
+(use-package php-mode)
+(use-package qml-mode)
 (use-package yaml-mode)
 (use-package sass-mode)
 (use-package cmake-mode)
@@ -94,40 +99,28 @@
 (use-package markdown-mode)
 
 ;;;
-;; Joining the dark side
-;;;
-;; (use-package evil
-;;   :config
-;;   (evil-mode 1))
-
-;;;
 ;; Basic Enhancements
 ;;;
 
 (use-package diff-hl
   :init
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (global-diff-hl-mode))
 
-(use-package autopair
-  :config
-  (autopair-global-mode))
+(use-package smartparens
+  :init
+  (add-hook 'prog-mode-hook #'smartparens-mode))
 
-;;; Expand region
 (use-package expand-region
   :bind ("C-;" . er/expand-region))
 
-;;(use-package autopair :init (autopair-global-mode))
-
-(use-package undo-tree :init (global-undo-tree-mode))
-
 (use-package emmet-mode
   :commands emmet-mode
-  :init
-  (add-hook 'sgml-mode-hook 'emmet-mode)
-  (add-hook 'css-mode-hook  'emmet-mode))
+  :hook (sgml-mode php-mode))
 
 (use-package yafolding
   :commands yafolding-mode
+  :hook (prog-mode . yafolding-mode)
   :config
   (define-key yafolding-mode-map (kbd "M-<return>") 'yafolding-toggle-element))
 
@@ -241,57 +234,32 @@
 (use-package company
   :commands company-complete
   :bind ("M-/" . company-complete)
+  :hook (after-init-hook . global-company-mode)
   :init
+  (use-package company-lsp)
+  :config
   (setq company-idle-delay 0)
-  (add-hook 'after-init-hook 'global-company-mode)
-  (add-to-list 'company-backends 'company-yasnippet)
+  (push 'company-yasnippet company-backends)
+  (push 'company-lsp company-backends))
 
-  ;; (use-package company-lsp
-  ;;   :requires company
-  ;;   :init
-  ;;   (push 'company-lsp company-backends))
+(use-package lsp-mode
+  :config
+  (use-package flycheck)
+  (use-package lsp-ui
+    :config
+    (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
+    (setq lsp-ui-sideline-enable nil) ;; Disable sideline)
 
-  ;; (use-package company-irony
-  ;;   :requires irony
-  ;;   :config
-  ;;   (eval-after-load 'company
-  ;;     '(add-to-list 'company-backends 'company-irony)))
-  )
+  (require 'lsp-clients) ;; Multiple language configurations out of the box
 
-;; (use-package irony
-;;   :config
-;;   (add-hook 'c++-mode-hook 'irony-mode)
-;;   (add-hook 'c-mode-hook 'irony-mode)
-;;   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  ;; (remove-hook 'lsp-eldoc-hook #'lsp-document-highlight)
 
-;; (use-package lsp-mode
-;;   :config
-;;   (require 'lsp-clients) ;; Multiple language configurations out of the box
-;;   (setq lsp-prefer-flymake nil) ;; Don't use flymake; we'll use flycheck.
-;;   (setq lsp-ui-sideline-enable nil) ;; Disable sideline
-;;   (remove-hook 'lsp-eldoc-hook #'lsp-document-highlight)
-
-;;   ;;; Enable lsp in certain programming modes
-;;   (add-hook 'c-mode-hook 'lsp)
-;;   (add-hook 'c++-mode-hook 'lsp)
-;;   (add-hook 'python-mode-hook 'lsp)
-;;   (add-hook 'javsacript-mode-hook 'lsp)
-;;   (add-hook 'css-mode-hook 'lsp)
-;;   (add-hook 'vue-mode-hook 'lsp)
-
-
-;;   (use-package flycheck)
-;;   (use-package lsp-ui)
-;;   (use-package vue-mode)
-
-;;   ;;; C / C++
-;;   ;;Using cquery
-;;   (use-package cquery
-;;     :config
-;;     (setq cquery-executable "/usr/bin/cquery"))
-
-;;   ;;; Ruby
-;;   (setq exec-path (append exec-path '("/home/doug/.gem/bin"))))
+  ;;; Enable lsp in certain programming modes
+  (add-hook 'c-mode-hook 'lsp)
+  (add-hook 'c++-mode-hook 'lsp)
+  (add-hook 'javsacript-mode-hook 'lsp)
+  (add-hook 'css-mode-hook 'lsp)
+  (add-hook 'vue-mode-hook 'lsp))
 
 ;;; Eyebrowse - workspaces in Emacs
 (use-package eyebrowse
@@ -325,6 +293,5 @@
 
 (use-package eww
   :commands eww
-  :config
-  (setq-default eww-search-prefix "https://duckduckgo.com/lite/?q="))
+  :config)
 (put 'erase-buffer 'disabled nil)
