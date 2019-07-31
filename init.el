@@ -106,6 +106,15 @@
 ;; Basic Enhancements
 ;;;
 
+
+;; Dired tweaks
+(setq dired-listing-switches "-alh")
+(use-package dired-subtree
+  :config
+  (bind-keys :map dired-mode-map
+             ("i" . dired-subtree-insert)
+             (";" . dired-subtree-remove)))
+
 (use-package diff-hl
   :init
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
