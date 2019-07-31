@@ -159,7 +159,7 @@
                      (projectile-project-root)
                    default-directory)))
     (call-process-shell-command
-     (concat "urxvt -cd " workdir) nil 0)))
+     (concat "kitty -d " workdir) nil 0)))
 
 (global-set-key (kbd "C-c t") 'open-terminal-in-workdir)
 
