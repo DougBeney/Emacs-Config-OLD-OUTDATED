@@ -90,6 +90,7 @@
 ;;;
 
 (use-package pug-mode)
+(use-package typescript-mode)
 (use-package vue-mode)
 (use-package php-mode)
 (use-package qml-mode)
@@ -165,7 +166,7 @@
                      (projectile-project-root)
                    default-directory)))
     (call-process-shell-command
-     (concat "kitty -d " workdir) nil 0)))
+     (concat "urxvt -cd " workdir) nil 0)))
 
 (global-set-key (kbd "C-c t") 'open-terminal-in-workdir)
 
@@ -257,7 +258,8 @@
           c++-mode
           javascript-mode
           vue-mode
-          css-mode) . lsp)
+          css-mode
+          typescript-mode) . lsp)
   :config
   (require 'lsp-clients) ;; Multiple language configurations out of the box
   (use-package ccls) ;; C/C++ language server
