@@ -93,6 +93,7 @@
 ;;;
 
 (use-package pug-mode)
+(use-package typescript-mode)
 (use-package vue-mode)
 (use-package php-mode)
 (use-package qml-mode)
@@ -260,7 +261,8 @@
           c++-mode
           javascript-mode
           vue-mode
-          css-mode) . lsp)
+          css-mode
+          typescript-mode) . lsp)
   :config
   (require 'lsp-clients) ;; Multiple language configurations out of the box
   (use-package ccls) ;; C/C++ language server
