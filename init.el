@@ -1,6 +1,3 @@
-;; Fix bullshit bug
-(setq-default gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-
 ;; Place font before sanemacs so that I can change the
 ;; font size in custom.el on a computer-by-computer basis.
 (set-face-attribute 'default nil
@@ -9,7 +6,7 @@
                     :weight 'normal
                     :width 'normal)
 
-(load "~/.emacs.d/sanemacs.el")
+(load "~/.emacs.d/sanemacs.el" nil t)
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; General Config   ;;
