@@ -160,13 +160,20 @@
 (use-package multiple-cursors)
 
 ;;; Open terminal in working directory using C-c t
-(defun open-terminal-in-workdir ()
-  (interactive)
+(defun open-terminal-program-in-workdir (command)
   (let ((workdir (if (projectile-project-root)
                      (projectile-project-root)
                    default-directory)))
     (call-process-shell-command
-     (concat "urxvt -cd " workdir) nil 0)))
+     (concat command workdir) nil 0)))
+
+(defun open-terminal-in-workdir ()
+  (interactive)
+  (open-terminal-program-in-workdir "urxvt -cd "))
+
+(defun open-guake-in-workdir ()
+  (interactive)
+  (open-terminal-program-in-workdir "guake --show --execute-command=cd\ "))
 
 (global-set-key (kbd "C-c t") 'open-terminal-in-workdir)
 
