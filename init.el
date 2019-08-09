@@ -90,6 +90,7 @@
 ;;;
 
 (use-package pug-mode)
+(use-package fish-mode)
 (use-package typescript-mode)
 (use-package vue-mode)
 (use-package php-mode)
