@@ -309,7 +309,8 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)
-     (C . t))))
+     (C . t)
+     (lisp . t))))
 
 (use-package olivetti
   :hook (markdown-mode . olivetti-mode))
