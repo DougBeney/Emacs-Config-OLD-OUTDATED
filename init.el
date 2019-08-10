@@ -90,6 +90,7 @@
 ;;;
 
 (use-package pug-mode)
+(use-package fish-mode)
 (use-package typescript-mode)
 (use-package vue-mode)
 (use-package php-mode)
@@ -317,3 +318,8 @@
   :commands eww
   :config)
 (put 'erase-buffer 'disabled nil)
+
+(use-package emojify
+  :hook (after-init . global-emojify-mode)
+  :config
+  (setq emojify-emoji-styles '(unicode github)))

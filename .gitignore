@@ -17,5 +17,6 @@ anaconda-mode/
 srecode-map.el
 semanticdb/
 transient/
+tramp
 
 .lsp*
