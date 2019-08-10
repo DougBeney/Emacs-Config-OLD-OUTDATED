@@ -303,7 +303,12 @@
 (use-package org
   :mode ("\\.org$" . org-mode)
   :bind ("C-c o" . org-open-index)
-  :bind ("C-c c" . org-capture))
+  :bind ("C-c c" . org-capture)
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+     (C . t))))
 
 (use-package olivetti
   :hook (markdown-mode . olivetti-mode))
