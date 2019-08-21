@@ -1,3 +1,6 @@
+;; Fix stupid bug
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 ;; Place font before sanemacs so that I can change the
 ;; font size in custom.el on a computer-by-computer basis.
 (set-face-attribute 'default nil
@@ -37,13 +40,6 @@
 (defun toggle-header-source ()
   (interactive)
   (ff-find-other-file nil t))
-
-(defun c-modes-functions ()
-  (lambda ()
-    (local-set-key (kbd "<f4>") 'toggle-header-source)))
-
-(add-hook 'c-mode-hook #'c-modes-functions)
-(add-hook 'c++-mode-hook #'c-modes-functions)
 
 ;; Delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -147,10 +143,6 @@
 
   (setq highlight-indent-guides-highlighter-function 'dont-highlight-first-level))
 
-(use-package doom-modeline
-  :init
-  (doom-modeline-init))
-
 ;;; Avy, an alternative to ace
 (use-package avy
   :config
@@ -206,6 +198,8 @@
   ;;     '(add-to-list 'ac-modfdfdfdes 'geiser-repl-mode)))
   )
 
+(global-set-key (kbd "C-c <f4>") 'ff-find-other-file)
+
 (use-package srefactor
   :config
   (add-hook 'c-mode-hook 'semantic-mode)
@@ -251,7 +245,10 @@
   :bind ("M-/" . company-complete)
   :hook (after-init . global-company-mode)
   :config
-  (setq company-idle-delay 0))
+  (setq company-idle-delay 0)
+  (use-package qml-mode
+    :config
+    (add-to-list 'company-backends 'company-qml)))
 
 (use-package yasnippet
   :init
@@ -259,18 +256,19 @@
   (push 'company-yasnippet company-backends))
 
 (use-package flycheck
-  :hook ((c-mode c++-mode javascript-mode) . flycheck-mode))
+  :hook ((javascript-mode) . flycheck-mode))
 
 (use-package lsp-mode
-  :hook ((c-mode
-          c++-mode
+  :hook ((;;c-mode
+          ;;c++-mode
           javascript-mode
           vue-mode
           css-mode
           typescript-mode) . lsp)
   :config
   (require 'lsp-clients) ;; Multiple language configurations out of the box
-  (use-package ccls) ;; C/C++ language server
+
+  ;; (use-package ccls) ;; C/C++ language server
 
   (use-package lsp-ui
     :hook (lsp-mode . lsp-ui-mode)
@@ -324,3 +322,5 @@
   :hook (after-init . global-emojify-mode)
   :config
   (setq emojify-emoji-styles '(unicode github)))
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
