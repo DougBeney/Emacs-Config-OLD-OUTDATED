@@ -18,6 +18,11 @@
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
 
+;; modeline
+(setq-default header-line-format mode-line-format)
+(setq-default mode-line-format nil)
+(setq-default header-line-format '(" %b "))
+
 ;; Compile shortcut key
 (global-set-key (kbd "C-c C-,") #'recompile)
 
@@ -77,9 +82,7 @@
 ;; Themes
 ;;;
 
-(use-package atom-one-dark-theme :defer t)
 (use-package dracula-theme :defer t)
-(use-package doom-themes :defer t)
 
 ;;;
 ;; Syntax Modes
