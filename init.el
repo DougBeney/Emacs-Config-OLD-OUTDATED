@@ -162,11 +162,11 @@
 
 (defun open-terminal-in-workdir ()
   (interactive)
-  (open-terminal-program-in-workdir "urxvt -cd "))
+  (open-terminal-program-in-workdir "tilix --working-directory="))
 
 (defun open-guake-in-workdir ()
   (interactive)
-  (open-terminal-program-in-workdir "guake --show --execute-command=cd\ "))
+  (open-terminal-program-in-workdir "guake --show --execute-command=cd \ "))
 
 (global-set-key (kbd "C-c t") 'open-terminal-in-workdir)
 
