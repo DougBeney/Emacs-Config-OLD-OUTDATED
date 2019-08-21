@@ -24,6 +24,10 @@
 ;; Compile shortcut key
 (global-set-key (kbd "C-c C-,") #'recompile)
 
+;; Align
+(global-set-key (kbd "C-c =") #'align)
+(global-set-key (kbd "C-c C-=") #'align-regexp)
+
 ;; Path
 (setenv "PATH" (concat
                 "/usr/bin:"
