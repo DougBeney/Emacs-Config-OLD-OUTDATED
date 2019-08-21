@@ -19,9 +19,7 @@
 (setq-default indent-tabs-mode nil)
 
 ;; modeline
-(setq-default header-line-format mode-line-format)
-(setq-default mode-line-format nil)
-(setq-default header-line-format '(" %b "))
+(setq-default mode-line-format '(" %b"))
 
 ;; Compile shortcut key
 (global-set-key (kbd "C-c C-,") #'recompile)
