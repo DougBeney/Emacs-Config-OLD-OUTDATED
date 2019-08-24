@@ -15,6 +15,9 @@
 ;; General Config   ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
 
@@ -93,6 +96,7 @@
 (use-package pug-mode)
 (use-package fish-mode)
 (use-package typescript-mode)
+(use-package meson-mode)
 (use-package vue-mode)
 (use-package php-mode)
 (use-package qml-mode)
@@ -167,7 +171,7 @@
 
 (defun open-terminal-in-workdir ()
   (interactive)
-  (open-terminal-program-in-workdir "tilix --working-directory="))
+  (open-terminal-program-in-workdir "xfce4-terminal --working-directory="))
 
 (defun open-guake-in-workdir ()
   (interactive)
@@ -251,9 +255,10 @@
   :hook (after-init . global-company-mode)
   :config
   (setq company-idle-delay 0)
-  (use-package qml-mode
-    :config
-    (add-to-list 'company-backends 'company-qml)))
+  ;; (use-package qml-mode
+  ;;   :config
+  ;;   (add-to-list 'company-backends 'company-qml))
+  )
 
 (use-package yasnippet
   :init
@@ -264,8 +269,8 @@
   :hook ((javascript-mode) . flycheck-mode))
 
 (use-package lsp-mode
-  :hook ((;;c-mode
-          ;;c++-mode
+  :hook ((c-mode
+          c++-mode
           javascript-mode
           vue-mode
           css-mode
