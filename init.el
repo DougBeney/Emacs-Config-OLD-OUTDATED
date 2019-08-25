@@ -1,6 +1,3 @@
-;; Fix stupid bug
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-
 ;; Place font before sanemacs so that I can change the
 ;; font size in custom.el on a computer-by-computer basis.
 (set-face-attribute 'default nil
