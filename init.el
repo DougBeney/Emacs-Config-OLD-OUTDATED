@@ -1,8 +1,8 @@
 ;; Place font before sanemacs so that I can change the
 ;; font size in custom.el on a computer-by-computer basis.
 (set-face-attribute 'default nil
-                    :family "Roboto Mono"
-                    :height 100
+                    :family "Fira Code"
+                    :height 110
                     :weight 'normal
                     :width 'normal)
 
@@ -304,7 +304,7 @@
 
 (defun org-open-index ()
   (interactive)
-  (lambda () (find-file "~/Drive/Notes/index.org")))
+  (lambda () (find-file "/home/doug/Google Drive/dougiebeney@gmail.com/Notes/index.org")))
 
 (use-package org
   :mode ("\\.org$" . org-mode)
@@ -315,7 +315,10 @@
    'org-babel-load-languages
    '((python . t)
      (C . t)
-     (lisp . t))))
+     (lisp . t)))
+  (use-package org-bullets
+    :init
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))))
 
 (use-package olivetti
   :hook (markdown-mode . olivetti-mode))
